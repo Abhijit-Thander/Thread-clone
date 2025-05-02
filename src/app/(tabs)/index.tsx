@@ -4,18 +4,11 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Home Screen</Text>
-     <StatusBar style='light' />
+    <View>
+      <Text className='text-red-500 text-5xl'>Feed</Text> 
+     <StatusBar style='light' />  
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
