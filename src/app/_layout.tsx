@@ -1,10 +1,21 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { Stack } from 'expo-router'
+
+import { Slot} from 'expo-router' 
+import { ThemeProvider,DarkTheme } from '@react-navigation/native'
+
+
+const myTheme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    primary: 'white'
+}}
+
 
 const RootLayout = () => {
   return (
-    <Stack screenOptions={{headerShown: false}}/>
+    <ThemeProvider value={myTheme} >  
+    <Slot />
+    </ThemeProvider>
   )
 }
 
