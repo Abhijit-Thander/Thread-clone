@@ -48,7 +48,8 @@ export const dummyUsers: User[] = [
 export const dummyPosts: Post[] = [
   {
     id: '1',
-    createdAt: '2024-03-15T10:00:00Z',
+    createdAt: '2025-05-3T10:00:00Z',
+    // image: 'https://randomuser.me/api/portraits/men/1.jpg',
     content: 'Just launched my new app! Check it out and let me know what you think. #coding #tech',
     user: dummyUsers[0],
     user_id: '1',
@@ -58,7 +59,7 @@ export const dummyPosts: Post[] = [
   },
   {
     id: '2',
-    createdAt: '2024-03-15T10:30:00Z',
+    createdAt: '2025-03-15T10:30:00Z',
     content: 'That looks amazing! What tech stack did you use?',
     user: dummyUsers[1],
     user_id: '2',
