@@ -1,14 +1,36 @@
-import { View, Text, TextInput, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Pressable, Alert } from 'react-native';
 import { Link } from 'expo-router';
 import { useState } from 'react';
+import { supabase } from '@/lib/supabase';
 
 export default function SignupScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = () => {
-    // TODO: Implement login logic
-    console.log('Login attempt with:', { email, password });
+  const handleSignup = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'All fields are required');
+      return;
+    }
+    try {
+      setIsLoading(true);
+      const {
+        data: {session},
+        error,
+      } = await supabase.auth.signUp({email,password})
+      if(error){ 
+        Alert.alert('Error', error.message)
+      }if(!session){
+        Alert.alert('Please check your email for a verification link')
+        return
+      }
+    } catch (error) {
+      console.error('Signup error:', error);
+      Alert.alert('Error', 'Failed to create account');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -42,9 +64,12 @@ export default function SignupScreen() {
 
           <TouchableOpacity 
             className="bg-black py-3 rounded-lg mt-4"
-            onPress={handleLogin}
+            onPress={handleSignup}
+            disabled={isLoading}
           >
-            <Text className="text-white text-center font-semibold">Signup</Text>
+            <Text className="text-white text-center font-semibold">
+              {isLoading ? 'Creating account...' : 'Signup'}
+            </Text>
           </TouchableOpacity>
 
           <View className="flex-row justify-center mt-4">
