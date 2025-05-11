@@ -1,4 +1,5 @@
 export type User = {
+    avatar_url: string | undefined;
     id: string;
     username: string;
     image: string;
@@ -7,6 +8,7 @@ export type User = {
 }
 
 export type Post = {
+    created_at: string | number | Date | Dayjs | null | undefined;
     id: string;
     createdAt: string;
     content: string;
