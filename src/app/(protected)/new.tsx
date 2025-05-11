@@ -1,10 +1,33 @@
 import { View, Text, TextInput, Pressable } from "react-native";
 import React from "react";
 import { useState } from "react";
+import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/providers/AuthProvider";
 
-const New = () => {
+const NewPostScreen = () => {
+  const [text, setText] = useState("");
+  const { user } = useAuth();
 
-  const [post, setPost] = useState('');
+  const onSubmit = async () => {
+    if (!text || !user) {
+      console.log("No text or user found:", { text, userId: user?.id });
+      return;
+    }
+
+    console.log("Submitting post:", { content: text, userId: user.id });
+    const { error, data } = await supabase.from("posts").insert({
+      content: text,
+      user_id: user.id,
+    });
+
+    if (error) {
+      console.log("Error submitting post:", error);
+    } else {
+      console.log("Post submitted successfully:", data);
+    }
+
+    setText("");
+  };
 
   return (
     <View className="p-4 flex-1">
@@ -14,16 +37,14 @@ const New = () => {
         placeholder="What's on your mind?"
         placeholderTextColor="black"
         multiline={true}
-        value={post}
-        onChangeText={setPost}
+        value={text}
+        onChangeText={setText}
       />
 
       <View className="mt-10">
         <Pressable
           className="bg-white p-3 rounded-3xl "
-          onPress={() => {
-            console.log(post);
-          }}
+          onPress={onSubmit}
         >
           <Text className="text-black text-center text-2xl font-bold">
             Post
@@ -34,4 +55,4 @@ const New = () => {
   );
 };
 
-export default New;
+export default NewPostScreen;

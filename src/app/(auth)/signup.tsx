@@ -71,15 +71,6 @@ export default function SignupScreen() {
               {isLoading ? 'Creating account...' : 'Signup'}
             </Text>
           </TouchableOpacity>
-
-          <View className="flex-row justify-center mt-4">
-            <Text className="text-gray-600">Already have an account? </Text>
-            <Link href="/login" asChild>
-              <Pressable>
-                <Text className="text-black font-semibold">Sign In</Text>
-              </Pressable>
-            </Link>
-          </View>
         </View>
       </View>
     </View>

@@ -2,7 +2,7 @@ import "../../global.css"
 import { Slot} from 'expo-router' 
 import { ThemeProvider,DarkTheme } from '@react-navigation/native'
 import { AuthProvider } from "@/providers/AuthProvider"
-
+import { StatusBar } from 'expo-status-bar'
 
 const myTheme = {
   ...DarkTheme,
@@ -12,10 +12,10 @@ const myTheme = {
     card:'#101010'
 }}
 
-
 const RootLayout = () => {
   return (
     <ThemeProvider value={myTheme} >  
+    <StatusBar style="light" />
     <AuthProvider>
     <Slot />
     </AuthProvider>

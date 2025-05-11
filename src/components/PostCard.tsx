@@ -36,8 +36,7 @@ const PostCard = ({ post }: { post: Post }) => {
       <View className="flex-row gap-6 mt-4">
         <TouchableOpacity className="flex-row items-center">
           <Ionicons name="heart-outline" size={20} color="#d1d5db" />
-          <Text className="text-gray-300 ml-2">0</Text>
-
+          <Text className="text-gray-300 ml-2">{post.likes}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity className="flex-row items-center">

@@ -3,9 +3,9 @@ import { User, Post } from './types';
 export const dummyUsers: User[] = [
   {
     id: '1',
-    username: 'Akash',
+    username: 'Mr. Avi',
     image: 'https://randomuser.me/api/portraits/men/1.jpg',
-    name: 'Akash',
+    name: 'Mr. Avi',
     bio: 'Software developer and tech enthusiast'
   },
   {
@@ -24,9 +24,9 @@ export const dummyUsers: User[] = [
   },
   {
     id: '4',
-    username: 'sarahjones',
+    username: 'Akshat Chudi Prasad',
     image: 'https://randomuser.me/api/portraits/women/2.jpg',
-    name: 'Sarah Jones',
+    name: 'Akshat Chudi Prasad',
     bio: 'Food blogger and recipe developer'
   },
   {
@@ -43,6 +43,8 @@ export const dummyUsers: User[] = [
     name: 'Emily Wilson',
     bio: 'Book lover and aspiring writer'
   }
+
+
 ];
 
 export const dummyPosts: Post[] = [
@@ -55,7 +57,8 @@ export const dummyPosts: Post[] = [
     user_id: '1',
     parent_id: null,
     parent: null,
-    replies: []
+    replies: [],
+    likes: '1.5k'
   },
   {
     id: '2',
@@ -65,47 +68,52 @@ export const dummyPosts: Post[] = [
     user_id: '2',
     parent_id: '1',
     parent: null,
+    likes: '1.5k',
     replies: []
   },
   {
     id: '3',
     createdAt: '2024-03-15T11:00:00Z',
     content: 'I used React Native with TypeScript and Firebase for the backend. Really happy with how it turned out!',
-    user: dummyUsers[0],
+    user: dummyUsers[2],
     user_id: '1',
     parent_id: '2',
     parent: null,
-    replies: []
+    replies: [],
+    likes: '1.5k'
   },
   {
     id: '4',
     createdAt: '2024-03-15T12:00:00Z',
     content: 'Just finished my latest digital art piece. What do you think? 🎨',
-    user: dummyUsers[1],
+    user: dummyUsers[3],
     user_id: '2',
     parent_id: null,
     parent: null,
-    replies: []
+    replies: [],
+    likes: '1.5k'
   },
   {
     id: '5',
     createdAt: '2024-03-15T12:30:00Z',
     content: 'Beautiful work! The colors are stunning.',
-    user: dummyUsers[2],
+    user: dummyUsers[4],
     user_id: '3',
     parent_id: '4',
     parent: null,
-    replies: []
+    replies: [],
+    likes: '1.5k'
   },
   {
     id: '6',
     createdAt: '2024-03-15T13:00:00Z',
     content: 'Just got back from an amazing trip to Japan! Here are some of my favorite shots.',
-    user: dummyUsers[2],
+    user: dummyUsers[5],
     user_id: '3',
     parent_id: null,
     parent: null,
-    replies: []
+    replies: [],
+    likes: '1.5k'
   },
   {
     id: '7',
@@ -115,7 +123,8 @@ export const dummyPosts: Post[] = [
     user_id: '4',
     parent_id: null,
     parent: null,
-    replies: []
+    replies: [],
+    likes: '1.5k'
   },
   {
     id: '8',
@@ -125,27 +134,30 @@ export const dummyPosts: Post[] = [
     user_id: '5',
     parent_id: '7',
     parent: null,
-    replies: []
+    replies: [],
+    likes: '1.5k'
   },
   {
     id: '9',
     createdAt: '2024-03-15T15:00:00Z',
     content: 'Just hit a new personal best at the gym! 💪',
-    user: dummyUsers[4],
+    user: dummyUsers[1],
     user_id: '5',
     parent_id: null,
     parent: null,
-    replies: []
+    replies: [],
+    likes: '1.5k'
   },
   {
     id: '10',
     createdAt: '2024-03-15T15:30:00Z',
     content: 'Currently reading "The Silent Patient". Anyone else read it?',
-    user: dummyUsers[5],
+    user: dummyUsers[2],
     user_id: '6',
     parent_id: null,
     parent: null,
-    replies: []
+    replies: [],
+    likes: '1.5k'
   },
   {
     id: '11',
@@ -155,7 +167,8 @@ export const dummyPosts: Post[] = [
     user_id: '1',
     parent_id: '10',
     parent: null,
-    replies: []
+    replies: [],
+    likes: '1.5k'
   },
   {
     id: '12',
@@ -165,7 +178,8 @@ export const dummyPosts: Post[] = [
     user_id: '5',
     parent_id: null,
     parent: null,
-    replies: []
+    replies: [],
+    likes: '1.5k'
   },
   {
     id: '13',
@@ -175,17 +189,19 @@ export const dummyPosts: Post[] = [
     user_id: '2',
     parent_id: '12',
     parent: null,
-    replies: []
+    replies: [],
+    likes: '1.5k'
   },
   {
     id: '14',
     createdAt: '2024-03-15T17:30:00Z',
     content: 'Just finished my latest painting. The process was so therapeutic.',
-    user: dummyUsers[1],
+    user: dummyUsers[5],
     user_id: '2',
     parent_id: null,
     parent: null,
-    replies: []
+    replies: [],
+    likes: '1.5k'
   },
   {
     id: '15',
@@ -195,16 +211,18 @@ export const dummyPosts: Post[] = [
     user_id: '4',
     parent_id: '14',
     parent: null,
-    replies: []
+    replies: [],
+    likes: '1.5k'
   },
   {
     id: '16',
     createdAt: '2024-03-15T18:30:00Z',
     content: 'Yes, I do! You can check out my portfolio at janedoe.art',
-    user: dummyUsers[1],
+    user: dummyUsers[2],
     user_id: '2',
     parent_id: '15',
     parent: null,
-    replies: []
+    replies: [],
+    likes: '1.5k'
   }
 ];
