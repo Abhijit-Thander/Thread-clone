@@ -1,48 +1,47 @@
-import React, { useEffect, useState } from 'react';
-// import { dummyPosts } from '@/dummyData';
-import { FlatList, View, Text, Alert } from 'react-native';
-import PostCard from '@/components/PostCard';
-import { Link } from 'expo-router';
-import { Post } from '@/types';
-import { supabase } from '@/lib/supabase';
+import React from "react";
+import { FlatList, Text, Alert, ActivityIndicator } from "react-native";
+import PostCard from "@/components/PostCard";
+import { Link } from "expo-router";
+import { supabase } from "@/lib/supabase";
+import { useQuery } from "@tanstack/react-query";
+
+const fetchPosts = async () => {
+  const { data } = await supabase
+    .from("posts")
+    .select("* , user:profiles(*)")
+    .throwOnError();
+  return data;
+};  
 
 export default function HomeScreen() {
+  const {
+    data,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["posts"],
+    queryFn: fetchPosts,
+  });
 
-  const [posts, setPosts] = useState<Post[]>([]);
-
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const { data, error } = await supabase.from('posts').select('* , user:profiles(*)');
-      if (error) {
-        Alert.alert('Error fetching posts', error.message);
-      }
-      setPosts(data as Post[]);
-    };
-    fetchPosts()
-  })
-
-  console.log(JSON.stringify(posts, null, 2));
- 
-
-
+  if (isLoading) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
+  if (error) {
+    Alert.alert("Error fetching posts", error.message);
+  }
   return (
     <FlatList
-      data={posts}
+      data={data}
       renderItem={({ item }) => <PostCard post={item} />}
       ListHeaderComponent={() => (
         <>
           <Link href="/new" className="text-white text-center text-lg p-4">
-            <Text className="text-blue-500 text-center text-3xl font-bold">New Post</Text>
+            <Text className="text-blue-500 text-center text-3xl font-bold">
+              New Post
+            </Text>
           </Link>
-
         </>
       )}
     />
   );
 }
-
-
-
-
-
