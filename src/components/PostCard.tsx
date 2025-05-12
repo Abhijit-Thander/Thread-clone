@@ -1,25 +1,34 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import { Post } from "@/types";
+// import { Post } from "@/types";
 import { Ionicons } from "@expo/vector-icons";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { Tables } from "@/types/database.types";
 
 dayjs.extend(relativeTime);
 
-const PostCard = ({ post }: { post: Post }) => {
+type PostWithUser = Tables<"posts"> & {
+  user: Tables<"profiles">;
+};
+
+const PostCard = ({ post }: { post: PostWithUser }) => {
   return (
     <View className=" border-b border-gray-800/60 p-6">
       {/* User Info and Post Header */}
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center">
           <Image
-            source={{ uri: post.user.avatar_url }}
+            source={{ uri: post.user.avatar_url || undefined }}
             className="w-10 h-10 rounded-full"
           />
           <View className="ml-3 flex-row items-center gap-3">
-            <Text className="text-white font-semibold">{post.user.username}</Text>
-            <Text className="text-gray-500 text-sm mt-1 ">{dayjs(post.created_at).fromNow()}</Text>
+            <Text className="text-white font-semibold">
+              {post.user.username}
+            </Text>
+            <Text className="text-gray-500 text-sm mt-1 ">
+              {dayjs(post.created_at).fromNow()}
+            </Text>
           </View>
         </View>
         <TouchableOpacity>
@@ -36,7 +45,7 @@ const PostCard = ({ post }: { post: Post }) => {
       <View className="flex-row gap-6 mt-4">
         <TouchableOpacity className="flex-row items-center">
           <Ionicons name="heart-outline" size={20} color="#d1d5db" />
-          <Text className="text-gray-300 ml-2">{post.likes}</Text>
+          <Text className="text-gray-300 ml-2">{0}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity className="flex-row items-center">
@@ -47,7 +56,6 @@ const PostCard = ({ post }: { post: Post }) => {
         <TouchableOpacity className="flex-row items-center">
           <Ionicons name="repeat" size={20} color="#d1d5db" />
           <Text className="text-gray-300 ml-2">0</Text>
-
         </TouchableOpacity>
 
         <TouchableOpacity className="flex-row items-center">
