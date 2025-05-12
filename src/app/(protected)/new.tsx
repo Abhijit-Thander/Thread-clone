@@ -1,33 +1,42 @@
-import { View, Text, TextInput, Pressable } from "react-native";
+import { View, Text, TextInput, Pressable, Alert } from "react-native";
 import React from "react";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/providers/AuthProvider";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { router } from "expo-router";
 
+
+
+const createPost = async (content: string, user_id: string) => {
+  const {  data } = await supabase
+    .from("posts")
+    .insert({content, user_id})
+    .select()
+    .throwOnError();
+
+  return data;
+};
+
+ 
 const NewPostScreen = () => {
   const [text, setText] = useState("");
   const { user } = useAuth();
+  const queryClient = useQueryClient()
+  
 
-  const onSubmit = async () => {
-    if (!text || !user) {
-      console.log("No text or user found:", { text, userId: user?.id });
-      return;
+ const {mutate,isPending} = useMutation({
+    mutationFn: async () => createPost(text, user!.id ),
+    onSuccess:()=>{
+      setText("")
+      router.back()
+      queryClient.invalidateQueries({queryKey:["posts"]})
+    },
+    onError:(error)=>{
+      Alert.alert("Error", error.message)
     }
 
-    console.log("Submitting post:", { content: text, userId: user.id });
-    const { error, data } = await supabase.from("posts").insert({
-      content: text,
-      user_id: user.id,
-    });
-
-    if (error) {
-      console.log("Error submitting post:", error);
-    } else {
-      console.log("Post submitted successfully:", data);
-    }
-
-    setText("");
-  };
+  })
 
   return (
     <View className="p-4 flex-1">
@@ -44,7 +53,8 @@ const NewPostScreen = () => {
       <View className="mt-10">
         <Pressable
           className="bg-white p-3 rounded-3xl "
-          onPress={onSubmit}
+          onPress={() => mutate()}
+          disabled={isPending}
         >
           <Text className="text-black text-center text-2xl font-bold">
             Post
