@@ -11,14 +11,10 @@ const fetchPosts = async () => {
     .select("* , user:profiles(*)")
     .throwOnError();
   return data;
-};  
+};
 
 export default function HomeScreen() {
-  const {
-    data,
-    isLoading,
-    error,
-  } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
   });
@@ -30,18 +26,6 @@ export default function HomeScreen() {
     Alert.alert("Error fetching posts", error.message);
   }
   return (
-    <FlatList
-      data={data}
-      renderItem={({ item }) => <PostCard post={item} />}
-      ListHeaderComponent={() => (
-        <>
-          <Link href="/new" className="text-white text-center text-lg p-4">
-            <Text className="text-blue-500 text-center text-3xl font-bold">
-              New Post
-            </Text>
-          </Link>
-        </>
-      )}
-    />
+    <FlatList data={data} renderItem={({ item }) => <PostCard post={item} />} />
   );
 }
